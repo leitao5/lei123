@@ -1,0 +1,212 @@
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/diyUpload.js"></script>
+
+<script src="__ADMIN__/lib/ueditor/ueditor.config.js"></script>
+<script src="__ADMIN__/lib/ueditor/ueditor.all.min.js"></script>
+<script src="__ADMIN__/lib/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<body>
+    <div class="x-body">
+        <form class="layui-form"  method="post" action="{:url('Article/add')}">
+
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>所属栏目
+                </label>
+                <div class="layui-input-inline">
+                    <select name="cate_id">
+                        <option value="">选择栏目</option>
+                        {volist name="cateRes" id="cate"}
+                        <option  {in name="$cate['id']" value="1,2" } disabled="disabled" {/in} value="{$cate.id}"> <?php echo str_repeat('-', $cate['level']*4)?>{$cate.cate_name}</option>
+
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+
+
+
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>标题
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="title" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">置顶</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="show_top" value="1" title="是" checked="">
+                    <div class="layui-unselect layui-form-radio layui-form-radioed">
+                        <i class="layui-anim layui-icon"></i><span>是</span></div>
+                    <input type="radio" name="show_top" value="0" title="否">
+                    <div class="layui-unselect layui-form-radio">
+                        <i class="layui-anim layui-icon"></i><span>否</span></div>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">显示状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="show_status" value="1" title="是" checked="">
+                    <div class="layui-unselect layui-form-radio layui-form-radioed">
+                        <i class="layui-anim layui-icon"></i><span>是</span></div>
+                    <input type="radio" name="show_status" value="0" title="否">
+                    <div class="layui-unselect layui-form-radio">
+                        <i class="layui-anim layui-icon"></i><span>否</span></div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>关键词
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="keywords" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label for="desc" class="layui-form-label">
+                    描述
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入内容" id="desc" name="description" class="layui-textarea" style="width: 50%;"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>作者
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="author" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+            <label for="username" class="layui-form-label">
+                <span class="x-red">*</span>邮箱
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="username" name="email" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>外链
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="link_url" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    缩略图
+                </label>
+                <div class="layui-input-inline">
+
+                    <div id="test123" ></div>
+                    <input type="hidden" id="cate_img" name="thumb" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+
+
+
+          <div class="layui-form-item layui-form-text">
+              <label for="desc" class="layui-form-label">
+                  文章内容
+              </label>
+              <div class="layui-input-block">
+                  <textarea placeholder="请输入内容"  name="content"   id="content"></textarea>
+              </div>
+          </div>
+
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+            nikename: function(value){
+              if(value.length < 5){
+                return '昵称至少得5个字符啊';
+              }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+         /* //监听提交
+          form.on('submit(add)', function(data){
+            console.log(data);
+            //发异步，把数据提交给php
+            layer.alert("增加成功", {icon: 6},function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+            return false;
+          });*/
+          
+          
+        });
+
+    </script>
+
+    <script>
+
+        $('#test123').diyUpload({
+            url:'{:url('Article/upload')}',
+            dataType:"json",
+            success:function( data ) {
+            console.log(data._raw);
+            //var tmpObj = '<input type="text" name="cat_img[]" value="'+data.imgUrl+'" class="layui-input">';
+            $('#cate_img').val(data._raw);
+            //   form.render();
+        },
+        error:function( err ) {
+            console.info( err );
+        }
+        });
+
+
+            //实例化编辑器
+            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+            UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:400,});
+
+    </script>
+  </body>
+
+</html>

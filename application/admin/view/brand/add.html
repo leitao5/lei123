@@ -1,0 +1,171 @@
+
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/diyUpload.js"></script>
+
+  
+  <body>
+    <div class="x-body">
+        <form class="layui-form" method="post" action="{:url('Brand/add')}" >
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>品牌名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="brand_name" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                 品牌地址
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="brand_url"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                   品牌log
+                </label>
+                <div class="layui-input-inline">
+                    <div id="test123" ></div>
+                    <input type="hidden" id="brand_img" name="brand_img"
+                           autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+
+
+
+
+
+            <div class="layui-form-item layui-form-text">
+                <label for="desc" class="layui-form-label">
+                    品牌描述
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入内容" id="desc" name="brand_description" class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">品牌状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="1" title="显示" checked>
+                    <input type="radio" name="status" value="0" title="隐藏" >
+                </div>
+            </div>
+
+
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+            nikename: function(value){
+              if(value.length < 5){
+                return '昵称至少得5个字符啊';
+              }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+        /*  form.on('submit(add)', function(data){
+            console.log(data);
+            //发异步，把数据提交给php
+            layer.alert("增加成功", {icon: 6},function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+            return false;
+          });*/
+          
+          
+        });
+
+
+    </script>
+
+    <script>
+     /*   function run(input_file,get_data){
+            /!*input_file：文件按钮对象*!/
+            /!*get_data: 转换成功后执行的方法*!/
+            if ( typeof(FileReader) === 'undefined' ){
+                alert("抱歉，你的浏览器不支持 FileReader，不能将图片转换为Base64，请使用现代浏览器操作！");
+            } else {
+                try{
+                    /!*图片转Base64 核心代码*!/
+                    var file = input_file.files[0];
+                    //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+                    if(!/image\/\w+/.test(file.type)){
+                        alert("请确保文件为图像类型");
+                        return false;
+                    }
+                    var reader = new FileReader();
+                    reader.onload = function(){
+                        get_data(this.result);
+                    }
+                    reader.readAsDataURL(file);
+                }catch (e){
+                    alert('图片转Base64出错啦！'+ e.toString())
+                }
+            }
+        }
+        $(function () {
+            $("#picLogo").change(function () {
+                run(this, function (data) {
+                    $('img').attr('src',data);
+                    $('#des').text(data);
+
+                   // console.log(data);
+                });
+            });
+        });*/
+    </script>
+
+    <script>
+
+
+        $('#test123').diyUpload({
+            url:'{:url('Brand/upload')}',
+            dataType:"json",
+            success:function( data ) {
+            console.log(data._raw);
+            //var tmpObj = '<input type="text" name="cat_img[]" value="'+data.imgUrl+'" class="layui-input">';
+            $('#brand_img').val(data._raw);
+            //   form.render();
+        },
+        error:function( err ) {
+            console.info( err );
+        }
+
+
+        });
+    </script>
+        </body>
+
+</html>

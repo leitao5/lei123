@@ -1,0 +1,147 @@
+
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__ADMIN__/lib/diyUpload/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/webuploader.html5only.min.js"></script>
+<script type="text/javascript" src="__ADMIN__/lib/diyUpload/diyUpload/js/diyUpload.js"></script>
+  
+  <body>
+    <div class="x-body">
+        <form class="layui-form" method="post" action="{:url('Brand/edit')}" >
+            <input type="hidden" value="{$brand.id}" name="id">
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>品牌名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="brand_name" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input" value="{$brand.brand_name}">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                品牌地址
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="brand_url"
+                  autocomplete="off" class="layui-input" value="{$brand.brand_url}">
+              </div>
+          </div>
+
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                 品牌log
+                </label>
+                <div class="layui-input-inline">
+
+                    <div id="test123" ></div>
+                    <img id="imgj" src="http://www.tpmall.cn/static/uploads/{$brand.brand_img}" alt="" height="50px;">
+                    <input type="hidden" id="brand_img" name="brand_img"
+                           autocomplete="off" class="layui-input" value="">
+
+                </div>
+            </div>
+
+
+
+         <!-- <div class="layui-form-item layui-form-text" style="display: none;">
+              <label for="desc" class="layui-form-label">
+                  品牌描述
+              </label>
+              <div class="layui-input-block">
+                  <textarea placeholder="请输入内容" id="des" name="brand_img" class="layui-textarea"></textarea>
+              </div>
+          </div>-->
+
+            <div class="layui-form-item layui-form-text">
+                <label for="desc" class="layui-form-label">
+                    品牌描述
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入内容" id="desc" name="brand_description" class="layui-textarea">{$brand.brand_description}</textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">单选框</label>
+                <div class="layui-input-block">
+
+                    <input type="radio" name="status" value="1" title="显示" {if condition="$brand['status'] eq 1"}checked{/if}>
+                    <input type="radio" name="status" value="0" title="隐藏" {if condition="$brand['status'] eq 0"} checked{/if} >
+                </div>
+            </div>
+
+
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  修改
+              </button>
+          </div>
+      </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+            nikename: function(value){
+              if(value.length < 5){
+                return '昵称至少得5个字符啊';
+              }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+        /*  form.on('submit(add)', function(data){
+            console.log(data);
+            //发异步，把数据提交给php
+            layer.alert("增加成功", {icon: 6},function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+            return false;
+          });*/
+          
+          
+        });
+
+
+    </script>
+
+    <script>
+
+       /* $('#rt_rt_1dba96er5acq2i01r27q4n1eom1').onclick() = function () {
+            $('#imgj').hide();
+        }*/
+
+        $('#test123').diyUpload({
+            url:'{:url('Brand/upload')}',
+            dataType:"json",
+            success:function( data ) {
+            console.log(data._raw);
+            $('#imgj').hide();
+            //var tmpObj = '<input type="text" name="cat_img[]" value="'+data.imgUrl+'" class="layui-input">';
+            $('#brand_img').val(data._raw);
+            //   form.render();
+        },
+        error:function( err ) {
+            console.info( err );
+        }
+        });
+    </script>
+  </body>
+
+</html>

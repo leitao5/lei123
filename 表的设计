@@ -1,0 +1,79 @@
+首先是商品品牌表
+tp_brand
+id
+brand_name 品牌名称
+brand_url 品牌地址
+brand_img 品牌logo
+brand_description  品牌描述
+sort  品牌排序
+status  1:显示 0：隐藏
+
+商品分类表
+tp_category
+cate_name 商品分类名称
+cate_img  栏目缩略图
+iconfont 栏目图标
+keywords  关键词
+description 描述
+sort  排序
+pid 上级栏目id
+show_cate   1:显示 0:隐藏
+search_attr_ids  筛选属性
+ps_num  价格区间数量
+
+
+商品类型表   比如商品分类是衣服，衣服后面有，男装，女装就属于商品的类型
+tp_type
+type_name  属性名称
+商品的属性表
+tp_attr
+attr_name 属性名称
+attr_type 属性类型 1:单选 2:唯一
+attr_values  属性值
+type_id 所属类型
+
+会员级别表
+tp_member_level
+level_name 级别名称
+bom_point 积分下限
+top_point 积分上限
+rate 折扣率
+
+tp_cate 是文章分类表
+tp_articl 文章管理表
+
+tp_conf 系统配置表
+
+
+
+比如商品的 衣服的颜色是黑色,银色,白色 大小货号
+tp_goods 商品主表
+
+
+auth权限分析
+
+
+ 管理员表
+id  uname   用户名 password  密码 groupid  所属用户组
+
+用户组表
+id 主键id  title 用户组名称  status  用户组状态  rules 用户组所拥有的权限id
+
+用户组和管理员关联表
+uid  m管理员id group_id  所属用户组的id
+
+规则权限表
+id  主键  name  规则英文名 title  规则名 pid 上级规则id 0表示顶级规则
+
+
+type tinyint(1) NOT NULL
+statustinyint(1) NOT NULL是否启用
+conditionchar(100) NOT NULL
+
+
+
+
+
+
+
+
